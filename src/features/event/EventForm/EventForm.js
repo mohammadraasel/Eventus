@@ -9,9 +9,21 @@ export class EventForm extends Component {
         venue: '',
         hostedBy: ''
     }
+
+    componentDidMount() {
+        this.props.selectedEvent && this.setState({
+            ...this.props.selectedEvent
+        })
+    }
+
     handleFormSubmit = e => {
         e.preventDefault()
-        this.props.createEvent(this.state)
+        if (this.state.id) {
+            this.props.updateEvent(this.state)
+        } else {
+            this.props.createEvent(this.state) 
+        }
+
         this.setState({
             title: '',
             date: '',
@@ -27,6 +39,7 @@ export class EventForm extends Component {
         })
     }
     render() {
+        console.log(this.state)
         return (
             <Segment>
                 <Form onSubmit={this.handleFormSubmit} autoComplete='off'>
