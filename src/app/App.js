@@ -6,6 +6,8 @@ import { Route, Switch } from "react-router-dom"
 import EventForm from "../components/EventForm/EventForm"
 import HomePage from "../components/Home/HomePage"
 import SettingsDashboard from "../components/Settings/SettingsDashboard"
+import PeopleDashboard from "../components/PeopleDashboard/PeopleDashboard"
+import EventDetail from "../components/EventDetail/EventDetail"
 
 class App extends Component {
 	render() {
@@ -27,12 +29,12 @@ class App extends Component {
 									<Route
 										exact
 										path='/events/:id'
-										component={EventDashboard}
+										component={EventDetail}
 									/>
 									<Route
 										exact
 										path='/people'
-										component={EventDashboard}
+										component={PeopleDashboard}
 									/>
 									<Route
 										exact
