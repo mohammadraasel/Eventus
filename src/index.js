@@ -1,21 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './app/layout/App'
-import './index.css'
-import * as serviceWorker from './serviceWorker'
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./app/App"
+import "./index.css"
+import * as serviceWorker from "./serviceWorker"
+import { BrowserRouter as Router } from "react-router-dom"
 
-const rootElement = document.getElementById('root')
+const rootElement = document.getElementById("root")
 
-let render = () => {
-  ReactDOM.render(<App />, rootElement)
+let render = Component => {
+	ReactDOM.render(
+		<Router>
+			<Component />
+		</Router>,
+		rootElement
+	)
 }
 
-if (module.hot) {
-  module.hot.accept('./app/layout/App', () => {
-    setTimeout(render)
-  })
-}
-
-render()
+render(App)
 
 serviceWorker.unregister()
