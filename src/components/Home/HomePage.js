@@ -1,13 +1,13 @@
-import React from "react"
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import {
-	Segment,
+	Button,
 	Container,
 	Header,
+	Icon,
 	Image,
-	Button,
-	Icon
-} from "semantic-ui-react"
+	Segment
+} from 'semantic-ui-react'
 
 const HomePage = () => {
 	const history = useHistory()
@@ -24,7 +24,11 @@ const HomePage = () => {
 					/>
 					Revents
 				</Header>
-				<Button onClick={()=> history.push('/events')} size='huge' inverted>
+				<Button
+					onClick={() => history.push('/events')}
+					size='huge'
+					inverted
+				>
 					Get started
 					<Icon name='right arrow' inverted />
 				</Button>

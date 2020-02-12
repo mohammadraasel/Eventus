@@ -2,15 +2,9 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 
 const PhotosPage = props => {
-	return (
-		<div>
-			photos page
-		</div>
-	)
+	return <div>photos page</div>
 }
 
-PhotosPage.propTypes = {
-
-}
+PhotosPage.propTypes = {}
 
 export default PhotosPage

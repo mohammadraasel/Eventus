@@ -1,19 +1,12 @@
-import React, { Component } from "react"
-import { List, Image } from "semantic-ui-react"
+import React from 'react'
+import { List, Image } from 'semantic-ui-react'
 
-export class EventListAttendee extends Component {
-	render() {
-		return (
-			<List.Item>
-				<Image
-					as='a'
-					size='mini'
-					circular
-					src={this.props.attendee.photoURL}
-				/>
-			</List.Item>
-		)
-	}
+const EventListAttendee = ({ attendee }) => {
+	return (
+		<List.Item>
+			<Image as='a' size='mini' circular src={attendee.photoURL} />
+		</List.Item>
+	)
 }
 
 export default EventListAttendee

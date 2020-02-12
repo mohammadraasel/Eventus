@@ -1,11 +1,11 @@
-import React, { useState } from "react"
-import { Menu, Container, Button } from "semantic-ui-react"
-import { NavLink, Link } from "react-router-dom"
-import SignedOutMenu from "../Menus/SignedOutMenu"
-import SignedInMenu from "../Menus/SignedInMenu"
+import React, { useState } from 'react'
+import { Menu, Container, Button } from 'semantic-ui-react'
+import { NavLink, Link } from 'react-router-dom'
+import SignedOutMenu from '../Menus/SignedOutMenu'
+import SignedInMenu from '../Menus/SignedInMenu'
 import { useHistory } from 'react-router-dom'
 
-const NavBar =()=>{
+const NavBar = () => {
 	const [isAuthenticated, setAuth] = useState(false)
 	const history = useHistory()
 
@@ -24,7 +24,7 @@ const NavBar =()=>{
 					<img src='/assets/logo.png' alt='logo' />
 					Revents
 				</Menu.Item>
-				<Menu.Item as={NavLink} to='/events' name='Events' />
+				<Menu.Item as={NavLink} exact to='/events' name='Events' />
 				<Menu.Item as={NavLink} to='/people' name='People' />
 				<Menu.Item>
 					<Button
@@ -36,18 +36,14 @@ const NavBar =()=>{
 						content='Create Event'
 					/>
 				</Menu.Item>
-				{
-					isAuthenticated ? 
-						<SignedInMenu signOut={signOut} />
-						:
-						<SignedOutMenu signIn={signIn} />
-				}
-				
-				
+				{isAuthenticated ? (
+					<SignedInMenu signOut={signOut} />
+				) : (
+					<SignedOutMenu signIn={signIn} />
+				)}
 			</Container>
 		</Menu>
 	)
-	
 }
 
 export default NavBar
