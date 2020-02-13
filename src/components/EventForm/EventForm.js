@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Segment, Form, Button } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { addEvent, updateEvent } from '../../redux/events/actions'
+import { useForm } from 'react-hook-form'
 import cuid from 'cuid'
 
 const EventForm = () => {
@@ -21,16 +22,20 @@ const EventForm = () => {
 					hostedBy: ''
 			  }
 	})
-	const [state, setState] = useState({ ...event })
 
-	const handleFormSubmit = e => {
-		e.preventDefault()
-		if (state.id) {
-			dispatch(updateEvent(state))
-			history.push(`/events/${state.id}`)
+	const { register, handleSubmit, errors } = useForm({
+		defaultValues: {
+			...event
+		}
+	})
+
+	const onSubmitted = data => {
+		if (id) {
+			dispatch(updateEvent({ ...event, ...data }))
+			history.push(`/events/${id}`)
 		} else {
 			const newEvent = {
-				...state,
+				...data,
 				id: cuid(),
 				hostPhotoURL: '/assets/user.png',
 				attendees: []
@@ -40,65 +45,72 @@ const EventForm = () => {
 		}
 	}
 
-	const handleInputChange = e => {
-		setState({
-			...state,
-			[e.target.name]: e.target.value
-		})
-	}
-
 	return (
 		<Segment>
-			<Form onSubmit={handleFormSubmit} autoComplete='off'>
+			<Form onSubmit={handleSubmit(onSubmitted)} autoComplete='off'>
 				<Form.Field>
 					<label>Event Title</label>
 					<input
 						type='text'
 						name='title'
-						value={state.title}
-						onChange={handleInputChange}
 						placeholder='First Name'
+						ref={register({ required: true })}
 					/>
+					{errors.title && (
+						<span style={{ color: 'red' }}>Title is required.</span>
+					)}
 				</Form.Field>
 				<Form.Field>
 					<label>Event Date</label>
 					<input
 						type='date'
 						name='date'
-						value={state.date}
-						onChange={handleInputChange}
 						placeholder='Event Date'
+						ref={register({ required: true })}
 					/>
+					{errors.date && (
+						<span style={{ color: 'red' }}>
+							Event Date is required.
+						</span>
+					)}
 				</Form.Field>
 				<Form.Field>
 					<label>City</label>
 					<input
 						type='text'
 						name='city'
-						value={state.city}
-						onChange={handleInputChange}
 						placeholder='City event is taking place'
+						ref={register({ required: true })}
 					/>
+					{errors.city && (
+						<span style={{ color: 'red' }}>City is required.</span>
+					)}
 				</Form.Field>
 				<Form.Field>
 					<label>Venue</label>
 					<input
 						type='text'
 						name='venue'
-						value={state.venue}
-						onChange={handleInputChange}
 						placeholder='Enter the Venue of the event'
+						ref={register({ required: true })}
 					/>
+					{errors.venue && (
+						<span style={{ color: 'red' }}>Venue is required.</span>
+					)}
 				</Form.Field>
 				<Form.Field>
 					<label>Hosted By</label>
 					<input
 						type='text'
 						name='hostedBy'
-						value={state.hostedBy}
-						onChange={handleInputChange}
 						placeholder='Enter the name of person hosting'
+						ref={register({ required: true })}
 					/>
+					{errors.hostedBy && (
+						<span style={{ color: 'red' }}>
+							HostedBy is required.
+						</span>
+					)}
 				</Form.Field>
 				<Button positive type='submit'>
 					Submit
