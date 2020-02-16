@@ -1,10 +1,12 @@
 import React from 'react'
-import { Segment, Form, Button } from 'semantic-ui-react'
+import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { addEvent, updateEvent } from '../../redux/events/actions'
 import { useForm } from 'react-hook-form'
 import cuid from 'cuid'
+import TextInput from '../TextInput'
+// import LocationSearchInput from '../LocationSeachInput'
 
 const EventForm = () => {
 	const { id } = useParams()
@@ -46,80 +48,93 @@ const EventForm = () => {
 	}
 
 	return (
-		<Segment>
-			<Form onSubmit={handleSubmit(onSubmitted)} autoComplete='off'>
-				<Form.Field>
-					<label>Event Title</label>
-					<input
-						type='text'
-						name='title'
-						placeholder='First Name'
-						ref={register({ required: true })}
-					/>
-					{errors.title && (
-						<span style={{ color: 'red' }}>Title is required.</span>
-					)}
-				</Form.Field>
-				<Form.Field>
-					<label>Event Date</label>
-					<input
-						type='date'
-						name='date'
-						placeholder='Event Date'
-						ref={register({ required: true })}
-					/>
-					{errors.date && (
-						<span style={{ color: 'red' }}>
-							Event Date is required.
-						</span>
-					)}
-				</Form.Field>
-				<Form.Field>
+		<Grid>
+			<Grid.Column width={10}>
+				<Segment>
+					<Header sub color='teal' content='Event Details' />
+					<Form
+						onSubmit={handleSubmit(onSubmitted)}
+						autoComplete='off'
+					>
+						<Form.Field>
+							<TextInput
+								errors={errors}
+								required={true}
+								register={register}
+								name='title'
+								placeholder='Give your event a title.'
+								type='text'
+							/>
+						</Form.Field>
+						<Form.Field>
+							<TextInput
+								errors={errors}
+								required={true}
+								register={register}
+								name='category'
+								placeholder='What is your event about?'
+								type='text'
+							/>
+						</Form.Field>
+						<Form.Field>
+							<TextInput
+								errors={errors}
+								required={true}
+								register={register}
+								name='description'
+								placeholder='Tell us about your event.'
+								type='text'
+							/>
+						</Form.Field>
+						<Header
+							sub
+							color='teal'
+							content='Event Location Details'
+						/>
+						<Form.Field>
+							<TextInput
+								errors={errors}
+								required={true}
+								register={register}
+								name='city'
+								placeholder='Event City.'
+								type='text'
+							/>
+						</Form.Field>
+						<Form.Field>
+							<TextInput
+								errors={errors}
+								required={true}
+								register={register}
+								name='venue'
+								placeholder='Event Venue.'
+								type='text'
+							/>
+						</Form.Field>
+						<Form.Field>
+							<TextInput
+								errors={errors}
+								required={true}
+								register={register}
+								placeholder='Event Date.'
+								name='date'
+							/>
+						</Form.Field>
+
+						{/* <Form.Field>
 					<label>City</label>
-					<input
-						type='text'
-						name='city'
-						placeholder='City event is taking place'
-						ref={register({ required: true })}
-					/>
-					{errors.city && (
-						<span style={{ color: 'red' }}>City is required.</span>
-					)}
-				</Form.Field>
-				<Form.Field>
-					<label>Venue</label>
-					<input
-						type='text'
-						name='venue'
-						placeholder='Enter the Venue of the event'
-						ref={register({ required: true })}
-					/>
-					{errors.venue && (
-						<span style={{ color: 'red' }}>Venue is required.</span>
-					)}
-				</Form.Field>
-				<Form.Field>
-					<label>Hosted By</label>
-					<input
-						type='text'
-						name='hostedBy'
-						placeholder='Enter the name of person hosting'
-						ref={register({ required: true })}
-					/>
-					{errors.hostedBy && (
-						<span style={{ color: 'red' }}>
-							HostedBy is required.
-						</span>
-					)}
-				</Form.Field>
-				<Button positive type='submit'>
-					Submit
-				</Button>
-				<Button onClick={history.goBack} type='button'>
-					Go Back
-				</Button>
-			</Form>
-		</Segment>
+					<LocationSearchInput />
+				</Form.Field> */}
+						<Button positive type='submit'>
+							Submit
+						</Button>
+						<Button onClick={history.goBack} type='button'>
+							Go Back
+						</Button>
+					</Form>
+				</Segment>
+			</Grid.Column>
+		</Grid>
 	)
 }
 
